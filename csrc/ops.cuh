@@ -13,9 +13,9 @@
 #include <assert.h>
 #include <hip/hip_runtime_api.h>
 #include <hip/hip_fp16.h>
-#include <hipblas.h>
+#include <hipblas/hipblas.h>
 // #include <cublasLt.h>
-#include <hipsparse.h>
+#include <hipsparse/hipsparse.h>
 #include <vector>
 #include <functional>
 
