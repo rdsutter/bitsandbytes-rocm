@@ -1,4 +1,4 @@
-# bitsandbytes
+# bitsandbytes-rocm
 
 The bitsandbytes is a lightweight wrapper around CUDA custom functions, in particular 8-bit optimizers, matrix multiplication (LLM.int8()), and quantization functions. 
 
@@ -13,7 +13,16 @@ Resources:
 **Requirements**
 Linux distribution (Ubuntu, MacOS, etc.) + CUDA >= 10.0. LLM.int8() requires Turing or Ampere GPUs.
 **Installation**:
-``pip install bitsandbytes``
+**Compilation quickstart:**
+
+The HIP version does not provide binary release so that you need to compile from source. If this happens please consider submitting a bug report with python -m bitsandbytes information.
+
+```shell
+git clone https://github.com/rdsutter/bitsandbytes-rocm.git
+cd bitsandbytes-rocm
+make hip
+CUDA_VERSION=gfx1035 python setup.py install
+```
 
 **Using 8-bit optimizer**:
 1. Comment out optimizer: ``#torch.optim.Adam(....)``
