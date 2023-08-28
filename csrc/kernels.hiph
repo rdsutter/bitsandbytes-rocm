@@ -4,7 +4,8 @@
 // LICENSE file in the root directory of this source tree.
 
 #include <float.h>
-#include <ops.cuh>
+#include <ops.hiph>
+#include "hip/hip_runtime.h"
 
 #ifndef kernels
 #define kernels

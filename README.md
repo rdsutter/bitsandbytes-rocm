@@ -1,7 +1,8 @@
-# bitsandbytes-rocm
+# bitsandbytes
 
-The bitsandbytes is a lightweight wrapper around CUDA custom functions, in particular 8-bit optimizers, matrix multiplication (LLM.int8()), and quantization functions. 
+The bitsandbytes is a lightweight wrapper around CUDA custom functions, in particular 8-bit optimizers, matrix multiplication (LLM.int8()), and quantization functions.
 
+This fork add ROCm support with a HIP compilation target.
 
 
 Resources:
@@ -11,18 +12,10 @@ Resources:
 
 ## TL;DR
 **Requirements**
-Linux distribution (Ubuntu, MacOS, etc.) + CUDA >= 10.0. LLM.int8() requires Turing or Ampere GPUs.
+Python >=3.8. Linux distribution (Ubuntu, MacOS, etc.) + CUDA > 10.0. LLM.int8() requires Turing or Ampere GPUs.
+
 **Installation**:
-**Compilation quickstart:**
-
-The HIP version does not provide binary release so that you need to compile from source. If this happens please consider submitting a bug report with python -m bitsandbytes information.
-
-```shell
-git clone https://github.com/rdsutter/bitsandbytes-rocm.git
-cd bitsandbytes-rocm
-make hip
-CUDA_VERSION=gfx1035 python setup.py install
-```
+``pip install bitsandbytes``
 
 **Using 8-bit optimizer**:
 1. Comment out optimizer: ``#torch.optim.Adam(....)``
@@ -57,15 +50,19 @@ out = linear(x.to(torch.float16))
 
 Requirements: anaconda, cudatoolkit, pytorch
 
-Hardware requirements: 
+Hardware requirements:
  - LLM.int8(): NVIDIA Turing (RTX 20xx; T4) or Ampere GPU (RTX 30xx; A4-A100); (a GPU from 2018 or older).
- - 8-bit optimizers and quantization: NVIDIA Maxwell GPU or newer (>=GTX 9XX).
+ - 8-bit optimizers and quantization: NVIDIA Kepler GPU or newer (>=GTX 78X).
 
-Supported CUDA versions: 10.2 - 11.7
+Supported CUDA versions: 10.2 - 12.0
 
 The bitsandbytes library is currently only supported on Linux distributions. Windows is not supported at the moment.
 
 The requirements can best be fulfilled by installing pytorch via anaconda. You can install PyTorch by following the ["Get Started"](https://pytorch.org/get-started/locally/) instructions on the official website.
+
+To install run:
+
+``pip install bitsandbytes``
 
 ## Using bitsandbytes
 
@@ -96,7 +93,7 @@ Note that by default all parameter tensors with less than 4096 elements are kept
 ```
 # parameter tensors with less than 16384 values are optimized in 32-bit
 # it is recommended to use multiplies of 4096
-adam = bnb.optim.Adam8bit(model.parameters(), min_8bit_size=16384) 
+adam = bnb.optim.Adam8bit(model.parameters(), min_8bit_size=16384)
 ```
 
 ### Change Bits and other Hyperparameters for Individual Parameters
